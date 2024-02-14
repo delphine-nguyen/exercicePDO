@@ -17,44 +17,29 @@
     <main>
         <?php
         require_once("./utils/DBconnect.php");
+        require_once("./DAO/PersonDAO.php");
+
         session_start();
         $id = $_SESSION["id"];
 
-        $connexion = DBconnect::getInstance(
-            dsn: "mysql:host=localhost; dbname=pdo;",
-            username: "root",
-            password: ""
-        );
-
-        $query = "SELECT fullname, email, age
-                    FROM persons
-                    WHERE id =:id;";
-
-        try {
-
-            $statement = $connexion->getPdo()->prepare($query);
-            $statement->bindParam(":id", $id);
-            $statement->execute();
-
-            $person = $statement->fetch(PDO::FETCH_ASSOC);
+        $person = PersonDAO::searchPersonById($id);
+        ?>
 
 
-            echo "<form action='./editPerson.php' method='post'>";
+        <form action='./editPerson.php' method='post'>
 
-            echo "<label for='fullname'>Fullname</label>";
-            echo "<input type='text' name='fullname' value='" . $person["fullname"] . "'>";
+            <label for='fullname'>Fullname</label>
+            <input type='text' name='fullname' value='<?php echo $person->getFullname() ?>'>
 
-            echo "<label for='email'>Email</label>";
-            echo "<input type='mail' name='email' value='" . $person["email"] . "'>";
+            <label for='email'>Email</label>
+            <input type='mail' name='email' value='<?php echo $person->getEmail() ?>'>
 
-            echo "<label for='age'>Age</label>";
-            echo "<input type='number' name='age' value='" . $person["age"] . "'>";
+            <label for='age'>Age</label>
+            <input type='number' name='age' value='<?php echo $person->getAge() ?>'>
 
-            echo "<button type='submit'>Save</button>";
-            echo "</form>";
-        } catch (PDOException $e) {
-            echo "ERROR: " . $e->getMessage() . "";
-        } ?>
+            <button type='submit'>Save</button>
+
+        </form>
 
     </main>
 </body>
