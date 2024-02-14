@@ -11,9 +11,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         form: $_POST
     )) {
 
-        $fullname = $_POST["fullname"];
-        $email = $_POST["email"];
-        $age = $_POST["age"];
+        $fullname = FormValidation::cleanData($_POST["fullname"]);
+        $email = FormValidation::cleanData($_POST["email"]);
+        $age = FormValidation::cleanData($_POST["age"]);
 
         $_SESSION["display"] = PersonDAO::createPerson(
             fullname: $fullname,

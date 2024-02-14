@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             fields: ["searchId"],
             form: $_GET
         )) {
-            $_SESSION["id"] = $_GET["searchId"];
+            $_SESSION["id"] = FormValidation::cleanData($_GET["searchId"]);
             header("Location: ./searchPerson.php");
             exit();
         }

@@ -11,18 +11,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         form: $_POST
     )) {
 
-
-        $cleanData = FormValidation::cleanData(
-            fields: ["fullname", "email", "age"],
-            data: $_POST
-        );
-
         var_dump($cleanData);
 
         $id = $_SESSION["id"];
-        $fullname = $cleanData["fullname"];
-        $email = $cleanData["email"];
-        $age = $cleanData["age"];
+        $fullname = FormValidation::cleanData($_POST["fullname"]);
+        $email = FormValidation::cleanData($_POST["email"]);
+        $age = FormValidation::cleanData($_POST["age"]);
 
         $_SESSION["display"] = PersonDAO::editPerson(
             id: $id,
