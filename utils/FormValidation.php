@@ -11,4 +11,15 @@ class FormValidation
         }
         return true;
     }
+
+    public static function cleanData(array $data, array $fields): array
+    {
+        $clean = [];
+        foreach ($data as $key => $value) {
+            if (array_key_exists($key, $fields)) {
+                $clean[$key] = htmlspecialchars($value);
+            }
+        }
+        return $clean;
+    }
 }
