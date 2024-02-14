@@ -110,4 +110,12 @@ class Person
         $this->age = $age;
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return "ID: " . $this->getId() . "<br>" .
+            "Fullname: " . $this->getFullname() . "<br>" .
+            "Email: " . $this->getEmail() . "<br>" .
+            "Age: " . $this->getAge() . "<br>";
+    }
 }
