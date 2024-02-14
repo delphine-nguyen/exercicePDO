@@ -23,6 +23,11 @@
         $id = $_SESSION["id"];
 
         $person = PersonDAO::searchPersonById($id);
+        if (!$person instanceof Person) {
+            $_SESSION["display"] = "No person with ID $id";
+            header("Location: ./index.php");
+            exit();
+        }
         ?>
 
 
