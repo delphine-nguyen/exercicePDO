@@ -2,6 +2,7 @@
 
 require_once("./utils/DBconnect.php");
 require_once("./DAO/PersonDAO.php");
+require_once("./utils/FormValidation.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
@@ -21,8 +22,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         header("Location: ./formCreatePerson.php");
         exit();
     } elseif (strtolower($_GET["choice"]) == "search") {
-        $_SESSION["id"] = $_GET["searchId"];
-        header("Location: ./searchPerson.php");
+        if (FormValidation::validate(
+            fields: ["searchId"],
+            form: $_GET
+        )) {
+            $_SESSION["id"] = $_GET["searchId"];
+            header("Location: ./searchPerson.php");
+            exit();
+        }
+        header("Location: ./index.php");
         exit();
     } else {
         $_SESSION["display"] = "Choice must be either 'edit' or 'delete'";
