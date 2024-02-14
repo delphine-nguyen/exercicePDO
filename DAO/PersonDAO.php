@@ -126,4 +126,37 @@ class PersonDAO
 
         return $display;
     }
+
+    public static function searchPersonById(int $id)
+    {
+        $connexion = DBconnect::getInstance(
+            dsn: "mysql:host=localhost; dbname=pdo;",
+            username: "root",
+            password: ""
+        );
+
+        $query = "SELECT * 
+            FROM persons
+            WHERE id=:id;";
+
+        try {
+            $statement = $connexion->getPdo()->prepare($query);
+            $statement->bindParam(":id", $id);
+            $statement->execute();
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+            if ($result) {
+                return new Person(
+                    id: $result["id"],
+                    fullname: $result["fullname"],
+                    email: $result["email"],
+                    age: $result["age"]
+                );
+            } else {
+                return "No result";
+            }
+        } catch (PDOException $e) {
+            echo "Erreur : " . $e->getMessage();
+        }
+    }
 }

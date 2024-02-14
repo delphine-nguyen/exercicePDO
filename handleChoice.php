@@ -20,6 +20,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     } elseif (strtolower($_GET["choice"]) == "create") {
         header("Location: ./formCreatePerson.php");
         exit();
+    } elseif (strtolower($_GET["choice"]) == "search") {
+        $_SESSION["id"] = $_GET["searchId"];
+        header("Location: ./searchPerson.php");
+        exit();
     } else {
         $_SESSION["display"] = "Choice must be either 'edit' or 'delete'";
         header("Location: ./index.php");

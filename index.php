@@ -29,11 +29,16 @@ require_once("./DAO/PersonDAO.php");
                 ?>
             </p>
         </section>
-        <?php
 
-        echo "<form method='get' action='handleChoice.php'>";
-        echo "<input type='submit' name='choice' value='Create'>";
-        echo "</form>";
+        <form method='get' action='handleChoice.php'>
+            <input type='submit' name='choice' value='Create'>
+            <input type="number" name="searchId" placeholder="ID of Person">
+            <input type="submit" name="choice" value='Search'>
+        </form>
+
+        <hr>
+
+        <?php
 
         $persons = PersonDAO::getAllPersons();
 
