@@ -5,6 +5,7 @@ require_once("./DAO/PersonDAO.php");
 session_start();
 $id = $_SESSION["id"];
 
-$_SESSION["display"] = PersonDAO::deletePerson(id: $id);
+$personDAO = new PersonDAO();
+$_SESSION["display"] = $personDAO->deletePerson(id: $id);
 header("Location: ./index.php");
 exit();

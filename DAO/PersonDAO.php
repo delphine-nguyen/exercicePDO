@@ -2,21 +2,28 @@
 
 require_once("./utils/DBconnect.php");
 require_once("./model/Person.php");
+require_once("./interface/IPersonDAO.php");
 
-class PersonDAO
+class PersonDAO implements IPersonDAO
 {
-    public static function getAllPersons(): array
+    private PDO $pdo;
+
+    public function __construct()
     {
-        $connexion = DBconnect::getInstance(
+        $this->pdo = DBconnect::getInstance(
             dsn: "mysql:host=localhost; dbname=pdo;",
             username: "root",
             password: ""
-        );
+        )->getPdo();
+    }
+
+    public function getAllPersons(): array
+    {
 
         $persons = [];
 
         try {
-            $statement = $connexion->getPdo()->prepare("SELECT * FROM persons;");
+            $statement = $this->pdo->prepare("SELECT * FROM persons;");
             $statement->execute();
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
@@ -36,23 +43,17 @@ class PersonDAO
         return $persons;
     }
 
-    public static function createPerson(
+    public function createPerson(
         string $fullname,
         string $email,
         int $age
     ): string {
 
-        $connexion = DBconnect::getInstance(
-            dsn: "mysql:host=localhost; dbname=pdo;",
-            username: "root",
-            password: ""
-        );
-
         $query = "INSERT INTO persons (fullname, email, age)
                             VALUES (:fullname, :email, :age);";
 
         try {
-            $statement = $connexion->getPdo()->prepare($query);
+            $statement = $this->pdo->prepare($query);
 
             $statement->bindParam(":fullname", $fullname);
             $statement->bindParam(":email", $email);
@@ -66,17 +67,13 @@ class PersonDAO
         return $display;
     }
 
-    public static function editPerson(
+    public function editPerson(
         int $id,
         string $fullname,
         string $email,
         int $age
     ): string {
-        $connexion = DBconnect::getInstance(
-            dsn: "mysql:host=localhost; dbname=pdo;",
-            username: "root",
-            password: ""
-        );
+
 
         $query = "UPDATE persons
                     SET fullname=:fullname, 
@@ -85,7 +82,7 @@ class PersonDAO
                     WHERE id=:id";
 
         try {
-            $statement = $connexion->getPdo()->prepare($query);
+            $statement = $this->pdo->prepare($query);
             if (isset($_POST["fullname"]) && isset($_POST["email"]) && isset($_POST["age"])) {
                 $statement->bindParam(":fullname", $fullname);
                 $statement->bindParam(":email", $email);
@@ -101,21 +98,15 @@ class PersonDAO
         return $display;
     }
 
-    public static function deletePerson(
+    public function deletePerson(
         int $id
     ): string {
-
-        $connexion = DBconnect::getInstance(
-            dsn: "mysql:host=localhost; dbname=pdo;",
-            username: "root",
-            password: ""
-        );
 
         $query = "DELETE FROM persons
                 WHERE id=:id;";
 
         try {
-            $statement = $connexion->getPdo()->prepare($query);
+            $statement = $this->pdo->prepare($query);
             $statement->bindParam(":id", $id);
 
             $statement->execute();
@@ -127,20 +118,15 @@ class PersonDAO
         return $display;
     }
 
-    public static function searchPersonById(int $id)
+    public function getPersonById(int $id)
     {
-        $connexion = DBconnect::getInstance(
-            dsn: "mysql:host=localhost; dbname=pdo;",
-            username: "root",
-            password: ""
-        );
 
         $query = "SELECT * 
             FROM persons
             WHERE id=:id;";
 
         try {
-            $statement = $connexion->getPdo()->prepare($query);
+            $statement = $this->pdo->prepare($query);
             $statement->bindParam(":id", $id);
             $statement->execute();
             $result = $statement->fetch(PDO::FETCH_ASSOC);

@@ -5,7 +5,9 @@ require_once("./DAO/PersonDAO.php");
 session_start();
 $id = $_SESSION["id"];
 
-$_SESSION["display"] = PersonDAO::searchPersonById(id: $id);
+$personDAO = new PersonDAO();
+
+$_SESSION["display"] = $personDAO->getPersonById(id: $id);
 
 header("Location: ./index.php");
 exit();

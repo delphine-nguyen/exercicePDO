@@ -39,8 +39,9 @@ require_once("./DAO/PersonDAO.php");
         <hr>
 
         <?php
+        $personDAO = new PersonDAO();
 
-        $persons = PersonDAO::getAllPersons();
+        $persons = $personDAO->getAllPersons();
 
         foreach ($persons as $person) : ?>
             <?php echo $person; ?>
