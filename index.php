@@ -43,10 +43,7 @@ require_once("./DAO/PersonDAO.php");
         $persons = PersonDAO::getAllPersons();
 
         foreach ($persons as $person) {
-            echo "ID: " . $person->getId() . "<br>";
-            echo "Fullname: " . $person->getFullname() . "<br>";
-            echo "Email: " . $person->getEmail() . "<br>";
-            echo "Age: " . $person->getAge() . "<br>";
+            echo $person;
             echo "<form method='get' action='handleChoice.php'>";
             echo "<input type='hidden' name='id' value='" . $person->getId() . "' />";
             echo "<input type='submit' name='choice' value='Edit' id='" . $person->getId() . "'>";
