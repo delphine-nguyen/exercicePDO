@@ -42,17 +42,16 @@ require_once("./DAO/PersonDAO.php");
 
         $persons = PersonDAO::getAllPersons();
 
-        foreach ($persons as $person) {
-            echo $person;
-            echo "<form method='get' action='handleChoice.php'>";
-            echo "<input type='hidden' name='id' value='" . $person->getId() . "' />";
-            echo "<input type='submit' name='choice' value='Edit' id='" . $person->getId() . "'>";
-            echo "<input type='submit' name='choice' value='Delete' id='" . $person->getId() . "'>";
-            echo "</form>";
-            echo "<hr>";
-        }
+        foreach ($persons as $person) : ?>
+            <?php echo $person; ?>
+            <form method='get' action='handleChoice.php'>
+                <input type='hidden' name='id' value='<?php echo $person->getId() ?>' />
+                <input type='submit' name='choice' value='Edit' id='<?php $person->getId() ?>'>
+                <input type='submit' name='choice' value='Delete' id='<?php $person->getId() ?>'>
 
-        ?>
+            </form>
+            <hr>
+        <?php endforeach; ?>
     </main>
 
 </body>
