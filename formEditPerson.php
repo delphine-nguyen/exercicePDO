@@ -17,12 +17,12 @@
     <main>
         <?php
         require_once("./utils/DBconnect.php");
-        require_once("./DAO/PersonDAO.php");
+        require_once("./DAO/imp/PersonDAOImp.php");
 
         session_start();
         $id = $_SESSION["id"];
 
-        $personDAO = new PersonDAO();
+        $personDAO = new PersonDAOImp();
 
         $person = $personDAO->getPersonById($id);
         if (!$person instanceof Person) {

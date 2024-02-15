@@ -2,9 +2,9 @@
 
 require_once("./utils/DBconnect.php");
 require_once("./model/Person.php");
-require_once("./interface/IPersonDAO.php");
+require_once("./DAO/IPersonDAO.php");
 
-class PersonDAO implements IPersonDAO
+class PersonDAOImp implements IPersonDAO
 {
     private PDO $pdo;
 

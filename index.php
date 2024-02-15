@@ -1,7 +1,7 @@
 <?php
 
 require_once("./model/Person.php");
-require_once("./DAO/PersonDAO.php");
+require_once("./DAO/imp/PersonDAOImp.php");
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +39,7 @@ require_once("./DAO/PersonDAO.php");
         <hr>
 
         <?php
-        $personDAO = new PersonDAO();
+        $personDAO = new PersonDAOImp();
 
         $persons = $personDAO->getAllPersons();
 

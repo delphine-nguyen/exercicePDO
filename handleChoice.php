@@ -1,7 +1,7 @@
 <?php
 
 require_once("./utils/DBconnect.php");
-require_once("./DAO/PersonDAO.php");
+require_once("./DAO/imp/PersonDAOImp.php");
 require_once("./utils/FormValidation.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {

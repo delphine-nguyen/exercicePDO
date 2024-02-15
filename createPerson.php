@@ -1,6 +1,6 @@
 <?php
 require_once("./utils/DBconnect.php");
-require_once("./DAO/PersonDAO.php");
+require_once("./DAO/imp/PersonDAOImp.php");
 require_once("./utils/FormValidation.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = FormValidation::cleanData($_POST["email"]);
         $age = FormValidation::cleanData($_POST["age"]);
 
-        $personDAO = new PersonDAO();
+        $personDAO = new PersonDAOImp();
 
         $_SESSION["display"] = $personDAO->createPerson(
             fullname: $fullname,
