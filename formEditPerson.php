@@ -44,7 +44,7 @@
             <label for='age'>Age</label>
             <input type='number' name='age' value='<?php echo $person->getAge() ?>'>
 
-            <button type='submit'>Save</button>
+            <button type='submit' name='submit'>Save</button>
 
         </form>
 

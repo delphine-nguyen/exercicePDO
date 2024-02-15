@@ -3,7 +3,7 @@ require_once("./utils/DBconnect.php");
 require_once("./DAO/PersonDAO.php");
 require_once("./utils/FormValidation.php");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if (isset($_POST["submit"])) {
 
     session_start();
     if (FormValidation::validate(
